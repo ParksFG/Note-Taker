@@ -4,6 +4,7 @@ const uuid = require('../helpers/uuid');
 
 // GET route for getting all the feedback
 fb.get('/', (req, res) => {
+    // Log GET request
     console.info(`${req.method} request recieved for feedback`);
 
     readFromFile('.db/feedback.json').then((data) => res.json(JSON.parse(data)));
@@ -11,8 +12,25 @@ fb.get('/', (req, res) => {
 
 // POST route for posting feedback
 fb.post('/', (req, res) => {
+    // Log POST request
     console.info(`${req.method} request received to submit feedback`);
 
+    const { noteTitle, noteText } = req.body;
+
+    const newNote = {
+        noteTitle,
+        noteText,
+        note_id: uuid(),
+    };
+
+    readAndAppend(newNote, './db/db.json');
+
+    const response = {
+        status: 'success',
+        body: newNote,
+    };
+
+    res.json(response)
 });
 
 
