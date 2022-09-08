@@ -23,9 +23,6 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-// GET route for notes json
-// app.get('/api/notes', (req, res) => res.json(noteData));
-
 // Open server and display in console that it is running.
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)

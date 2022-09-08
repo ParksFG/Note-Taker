@@ -1,37 +1,37 @@
-const fb = require('express').Router();
-const { readFromFile, readAndAppend } = require('../helpers/fsFuncs');
-const uuid = require('../helpers/uuid');
+// const fb = require('express').Router();
+// const { readFromFile, readAndAppend } = require('../helpers/fsFuncs');
+// const uuid = require('../helpers/uuid');
 
-// GET route for getting all the feedback
-fb.get('/', (req, res) => {
-    // Log GET request
-    console.info(`${req.method} request recieved for feedback`);
+// // GET route for getting all the feedback
+// fb.get('/', (req, res) => {
+//     // Log GET request
+//     console.info(`${req.method} request recieved for feedback`);
 
-    readFromFile('.db/feedback.json').then((data) => res.json(JSON.parse(data)));
-});
+//     readFromFile('.db/db.json').then((data) => res.json(JSON.parse(data)));
+// });
 
-// POST route for posting feedback
-fb.post('/', (req, res) => {
-    // Log POST request
-    console.info(`${req.method} request received to submit feedback`);
+// // POST route for posting feedback
+// fb.post('/', (req, res) => {
+//     // Log POST request
+//     console.info(`${req.method} request received to submit feedback`);
 
-    const { noteTitle, noteText } = req.body;
+//     const { noteTitle, noteText } = req.body;
 
-    const newNote = {
-        noteTitle,
-        noteText,
-        note_id: uuid(),
-    };
+//     const newNote = {
+//         noteTitle,
+//         noteText,
+//         id: uuid(),
+//     };
 
-    readAndAppend(newNote, './db/db.json');
+//     readAndAppend(newNote, './db/db.json');
 
-    const response = {
-        status: 'success',
-        body: newNote,
-    };
+//     const response = {
+//         status: 'success',
+//         body: newNote,
+//     };
 
-    res.json(response)
-});
+//     res.json(response)
+// });
 
 
-module.exports = fb;
+// module.exports = fb;

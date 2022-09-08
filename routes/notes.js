@@ -1,6 +1,7 @@
 const notes = require('express').Router();
-const { readFromFile, readAndAppend } = require('../helpers/fsFuncs');
+const { readFromFile, readAndAppend, removeNote } = require('../helpers/fsFuncs');
 const uuid = require('../helpers/uuid');
+const noteData = require('../db/db.json');
 
 // GET Route for getting the notes
 notes.get('/', (req, res) => {
@@ -11,7 +12,7 @@ notes.get('/', (req, res) => {
 // POST route for new note
 notes.post('/', (req, res) => {
     console.info(`${req.method} request received to add note`);
-    console.log(req.body);
+    // console.log(req.body);
 
     const { title, text } = req.body;
 
@@ -19,7 +20,7 @@ notes.post('/', (req, res) => {
         const newNote = {
             title,
             text,
-            note_id: uuid(),
+            id: uuid(),
         };
 
         readAndAppend(newNote, './db/db.json');
@@ -29,6 +30,24 @@ notes.post('/', (req, res) => {
     }
 });
 
+notes.get('/:id', (req, res) => {
+    const resquestedNote = req.params.id;
+    console.info(`${resquestedNote}`)
+    if (resquestedNote) {
+        for (let i = 0; i < noteData.length; i++) {
+            if (resquestedNote === noteData[i].id) {
+                return res.json(noteData[i]);
+            }
+        }
+    }
 
+    return res.json('No note found')
+
+});
+
+notes.delete('/:id', (req, res) => {
+    const requestedNote = req.params.id;
+
+});
 
 module.exports = notes;
