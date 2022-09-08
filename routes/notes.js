@@ -1,7 +1,7 @@
 const notes = require('express').Router();
 const { readFromFile, readAndAppend, removeNote } = require('../helpers/fsFuncs');
 const uuid = require('../helpers/uuid');
-let noteData = require('../db/db.json');
+const noteData = require('../db/db.json');
 
 // GET Route for getting the notes
 notes.get('/', (req, res) => {
@@ -30,26 +30,28 @@ notes.post('/', (req, res) => {
     }
 });
 
-notes.get('/:id', (req, res) => {
-    const resquestedNote = req.params.id;
-    console.info(`${resquestedNote}`)
-    if (resquestedNote) {
-        for (let i = 0; i < noteData.length; i++) {
-            if (resquestedNote === noteData[i].id) {
-                return res.json(noteData[i]);
-            }
-        }
-    }
+// notes.get('/:id', (req, res) => {
+//     const resquestedNote = req.params.id;
+//     console.info(`${resquestedNote}`)
+//     if (resquestedNote) {
+//         for (let i = 0; i < noteData.length; i++) {
+//             if (resquestedNote === noteData[i].id) {
+//                 return res.json(noteData[i]);
+//             }
+//         }
+//     }
 
-    return res.json('No note found')
+//     return res.json('No note found')
 
-});
+// });
 
 notes.delete('/:id', (req, res) => {
-    const requestedNote = req.params.id;
+    let requestedNote = req.params.id;
     console.info(`${requestedNote}`)
-    removeNote(requestedNote, noteData);
-    res.json()
+    console.log('NOTE DATA DELETE: ' + noteData)
+    removeNote(requestedNote);
+    console.log('Delete request success')
+    res.json();
 });
 
 module.exports = notes;
