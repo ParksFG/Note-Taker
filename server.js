@@ -22,6 +22,7 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+// gets the note database
 app.get('/api/notes', (req, res) => res.json(noteData));
 
 // Open server and display in console that it is running.
