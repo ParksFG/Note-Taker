@@ -1,7 +1,7 @@
 const notes = require('express').Router();
 const { readFromFile, readAndAppend, removeNote } = require('../helpers/fsFuncs');
 const uuid = require('../helpers/uuid');
-const noteData = require('../db/db.json');
+let noteData = require('../db/db.json');
 
 // GET Route for getting the notes
 notes.get('/', (req, res) => {
@@ -47,7 +47,9 @@ notes.get('/:id', (req, res) => {
 
 notes.delete('/:id', (req, res) => {
     const requestedNote = req.params.id;
-
+    console.info(`${requestedNote}`)
+    removeNote(requestedNote, noteData);
+    res.json()
 });
 
 module.exports = notes;

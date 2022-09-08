@@ -1,6 +1,6 @@
 const fs = require('fs');
 const util = require('util');
-const path = require('path');
+
 
 const readFromFile = util.promisify(fs.readFile);
 
@@ -17,10 +17,19 @@ const readAndAppend = (content, file) => {
     });
 };
 
-const removeNote = (noteId, notesJson) => {
-    const deletedNote = notesJson.map(x => x.id).indexOf(noteId)
-    notesJson.splice(deletedNote, 1);
-    fs.writeFile(path.join(__dirname, ))
+const removeNote = (noteId, notes) => {
+    const stringy = JSON.stringify(notes)
+    console.info(`${stringy}`);
+    const noteFound = notes.findIndex(obj => obj.id == noteId);
+    console.log(noteFound);
+    // let newArray = notes.filter(function(note) {
+    //     return note.id != noteId 
+    // });
+    notes.splice(noteFound, 1);
+    console.log(notes)
+    // const stringy2 = JSON.stringify(newArray)
+    // console.info(`${stringy2}`);
+    writeToFile('./db/db.json', notes);
 };
 
 module.exports = { readFromFile, writeToFile, readAndAppend, removeNote };
