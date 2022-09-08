@@ -12,7 +12,6 @@ notes.get('/', (req, res) => {
 // POST route for new note
 notes.post('/', (req, res) => {
     console.info(`${req.method} request received to add note`);
-    // console.log(req.body);
 
     const { title, text } = req.body;
 
@@ -30,27 +29,12 @@ notes.post('/', (req, res) => {
     }
 });
 
-// notes.get('/:id', (req, res) => {
-//     const resquestedNote = req.params.id;
-//     console.info(`${resquestedNote}`)
-//     if (resquestedNote) {
-//         for (let i = 0; i < noteData.length; i++) {
-//             if (resquestedNote === noteData[i].id) {
-//                 return res.json(noteData[i]);
-//             }
-//         }
-//     }
-
-//     return res.json('No note found')
-
-// });
-
+// DELETE route for removing note
 notes.delete('/:id', (req, res) => {
     let requestedNote = req.params.id;
-    console.info(`${requestedNote}`)
-    console.log('NOTE DATA DELETE: ' + noteData)
+    console.info(`${req.method} request received to delete note`);
     removeNote(requestedNote);
-    console.log('Delete request success')
+    console.info(`${req.method} request successful`);
     res.json();
 });
 

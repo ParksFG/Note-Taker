@@ -22,7 +22,6 @@ const readAndAppend = (content, file) => {
 const removeNote = (noteId) => {
     fs.readFile('./db/db.json', 'utf8', (err, note) => {
         const currentNotes = JSON.parse(note);
-        console.log('THIS ARE RIGHT NOW' + currentNotes)
         const noteFound = currentNotes.findIndex(obj => obj.id == noteId);
         currentNotes.splice(noteFound, 1);
         writeToFile('./db/db.json', currentNotes);
